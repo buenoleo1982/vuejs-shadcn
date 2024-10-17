@@ -1,18 +1,22 @@
+import App from '@/App.vue'
 import '@/assets/index.css'
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { createRouter, createWebHistory } from 'vue-router'
-import { routes } from 'vue-router/auto-routes'
+import type { UserModule } from '@/types'
 import { setupLayouts } from 'virtual:generated-layouts'
-import App from './App.vue'
+import { ViteSSG } from 'vite-ssg'
 
-const app = createApp(App)
-const router = createRouter({
-  routes: setupLayouts(routes),
-  history: createWebHistory(import.meta.env.BASE_URL),
-})
+import { routes } from 'vue-router/auto-routes'
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+export const createApp = ViteSSG(
+  App,
+  {
+    routes: setupLayouts(routes),
+    base: import.meta.env.BASE_URL,
+  },
+  ctx => {
+    Object.values(
+      import.meta.glob<{ install: UserModule }>('./modules/*.ts', {
+        eager: true,
+      }),
+    ).forEach(i => i.install?.(ctx))
+  },
+)
