@@ -1,0 +1,18 @@
+overwrite: true
+schema: 'http://localhost:4000/graphql'
+documents:
+  - './src/**/*.graphql'
+  - './src/**/*.gql'
+  # - './src/**/*.vue'
+generates:
+  src/gql/generated/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-vue-apollo'
+    config:
+      withCompositionFunctions: true
+      vueCompositionApiImportFrom: vue
+    hooks:
+      afterOneFileWrite:
+        - prettier --write

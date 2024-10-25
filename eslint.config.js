@@ -1,8 +1,8 @@
-import pluginVue from 'eslint-plugin-vue'
-import vueTsEslintConfig from '@vue/eslint-config-typescript'
 import pluginVitest from '@vitest/eslint-plugin'
-import pluginCypress from 'eslint-plugin-cypress/flat'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import vueTsEslintConfig from '@vue/eslint-config-typescript'
+import pluginCypress from 'eslint-plugin-cypress/flat'
+import pluginVue from 'eslint-plugin-vue'
 
 export default [
   {
@@ -12,7 +12,12 @@ export default [
 
   {
     name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    ignores: [
+      '**/dist/**',
+      '**/dist-ssr/**',
+      '**/coverage/**',
+      '**/src/gql/generated/**',
+    ],
   },
 
   ...pluginVue.configs['flat/essential'],

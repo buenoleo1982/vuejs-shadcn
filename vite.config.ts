@@ -1,7 +1,7 @@
 import path from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
-import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+import { default as VueI18n } from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import tailwind from 'tailwindcss'
@@ -33,18 +33,23 @@ export default defineConfig(({ mode }) => {
           'vue',
           'vue-i18n',
           VueRouterAutoImports,
+          'vee-validate',
+          // { '@/gql/generated/graphql': ['*'] },
           {
             'vue-router/auto': ['useLink'],
+            '@vee-validate/valibot': ['toTypedSchema'],
+            // valibot: ['*', 'vbot'],
           },
         ],
         dts: 'src/auto-imports.d.ts',
-        dirs: ['src/composables', 'src/stores'],
+        dirs: ['src/composables', 'src/stores', 'src/gql/generated'],
         vueTemplate: true,
       }),
       Components({
         extensions: ['vue', 'md'],
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
         dts: 'src/components.d.ts',
+        dirs: ['src/components', 'src/components/ui'],
       }),
       VueI18n({
         runtimeOnly: true,

@@ -11,4 +11,9 @@ intro:
   hi: Olá, {name}!
   aka: Também conhecido como
   whats-your-name: Qual é o seu nome?
-not-found: Não encontrado
+error:
+  not-found: Não encontrado
+auth:
+  password: Senha
+  username: Usuário ou senha
+  submit: Acessar

@@ -14,6 +14,7 @@ declare module 'vue' {
     CardFooter: typeof import('./components/ui/card/CardFooter.vue')['default']
     CardHeader: typeof import('./components/ui/card/CardHeader.vue')['default']
     CardTitle: typeof import('./components/ui/card/CardTitle.vue')['default']
+    FloatingLabelInput: typeof import('./components/form/FloatingLabelInput.vue')['default']
     FormControl: typeof import('./components/ui/form/FormControl.vue')['default']
     FormDescription: typeof import('./components/ui/form/FormDescription.vue')['default']
     FormItem: typeof import('./components/ui/form/FormItem.vue')['default']

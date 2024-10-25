@@ -6,12 +6,18 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const *: typeof import('valibot')
   const EffectScope: typeof import('vue')['EffectScope']
+  const FieldContextKey: typeof import('vee-validate')['FieldContextKey']
+  const FormContextKey: typeof import('vee-validate')['FormContextKey']
+  const PingDocument: typeof import('./gql/generated/graphql')['PingDocument']
   const computed: typeof import('vue')['computed']
+  const configure: typeof import('vee-validate')['configure']
   const createApp: typeof import('vue')['createApp']
   const customRef: typeof import('vue')['customRef']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
+  const defineRule: typeof import('vee-validate')['defineRule']
   const effectScope: typeof import('vue')['effectScope']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -50,6 +56,7 @@ declare global {
   const toRaw: typeof import('vue')['toRaw']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
+  const toTypedSchema: typeof import('@vee-validate/valibot')['toTypedSchema']
   const toValue: typeof import('vue')['toValue']
   const triggerRef: typeof import('vue')['triggerRef']
   const unref: typeof import('vue')['unref']
@@ -57,14 +64,38 @@ declare global {
   const useCounterStore: typeof import('./stores/counter')['useCounterStore']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useField: typeof import('vee-validate')['useField']
+  const useFieldArray: typeof import('vee-validate')['useFieldArray']
+  const useFieldError: typeof import('vee-validate')['useFieldError']
+  const useFieldValue: typeof import('vee-validate')['useFieldValue']
+  const useForm: typeof import('vee-validate')['useForm']
+  const useFormErrors: typeof import('vee-validate')['useFormErrors']
+  const useFormValues: typeof import('vee-validate')['useFormValues']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useId: typeof import('vue')['useId']
+  const useIsFieldDirty: typeof import('vee-validate')['useIsFieldDirty']
+  const useIsFieldTouched: typeof import('vee-validate')['useIsFieldTouched']
+  const useIsFieldValid: typeof import('vee-validate')['useIsFieldValid']
+  const useIsFormDirty: typeof import('vee-validate')['useIsFormDirty']
+  const useIsFormTouched: typeof import('vee-validate')['useIsFormTouched']
+  const useIsFormValid: typeof import('vee-validate')['useIsFormValid']
+  const useIsSubmitting: typeof import('vee-validate')['useIsSubmitting']
   const useLink: typeof import('vue-router/auto')['useLink']
   const useModel: typeof import('vue')['useModel']
+  const usePingLazyQuery: typeof import('./gql/generated/graphql')['usePingLazyQuery']
+  const usePingQuery: typeof import('./gql/generated/graphql')['usePingQuery']
+  const useResetForm: typeof import('vee-validate')['useResetForm']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
   const useSlots: typeof import('vue')['useSlots']
+  const useSubmitCount: typeof import('vee-validate')['useSubmitCount']
+  const useSubmitForm: typeof import('vee-validate')['useSubmitForm']
   const useTemplateRef: typeof import('vue')['useTemplateRef']
+  const useValidateField: typeof import('vee-validate')['useValidateField']
+  const useValidateForm: typeof import('vee-validate')['useValidateForm']
+  const v: typeof import('valibot')['v']
+  const validate: typeof import('vee-validate')['validate']
+  const vbot: typeof import('valibot')['vbot']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
@@ -82,11 +113,16 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly FieldContextKey: UnwrapRef<typeof import('vee-validate')['FieldContextKey']>
+    readonly FormContextKey: UnwrapRef<typeof import('vee-validate')['FormContextKey']>
+    readonly PingDocument: UnwrapRef<typeof import('./gql/generated/graphql')['PingDocument']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
+    readonly configure: UnwrapRef<typeof import('vee-validate')['configure']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly defineRule: UnwrapRef<typeof import('vee-validate')['defineRule']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
@@ -125,6 +161,7 @@ declare module 'vue' {
     readonly toRaw: UnwrapRef<typeof import('vue')['toRaw']>
     readonly toRef: UnwrapRef<typeof import('vue')['toRef']>
     readonly toRefs: UnwrapRef<typeof import('vue')['toRefs']>
+    readonly toTypedSchema: UnwrapRef<typeof import('@vee-validate/valibot')['toTypedSchema']>
     readonly toValue: UnwrapRef<typeof import('vue')['toValue']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
@@ -132,14 +169,36 @@ declare module 'vue' {
     readonly useCounterStore: UnwrapRef<typeof import('./stores/counter')['useCounterStore']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useField: UnwrapRef<typeof import('vee-validate')['useField']>
+    readonly useFieldArray: UnwrapRef<typeof import('vee-validate')['useFieldArray']>
+    readonly useFieldError: UnwrapRef<typeof import('vee-validate')['useFieldError']>
+    readonly useFieldValue: UnwrapRef<typeof import('vee-validate')['useFieldValue']>
+    readonly useForm: UnwrapRef<typeof import('vee-validate')['useForm']>
+    readonly useFormErrors: UnwrapRef<typeof import('vee-validate')['useFormErrors']>
+    readonly useFormValues: UnwrapRef<typeof import('vee-validate')['useFormValues']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
+    readonly useIsFieldDirty: UnwrapRef<typeof import('vee-validate')['useIsFieldDirty']>
+    readonly useIsFieldTouched: UnwrapRef<typeof import('vee-validate')['useIsFieldTouched']>
+    readonly useIsFieldValid: UnwrapRef<typeof import('vee-validate')['useIsFieldValid']>
+    readonly useIsFormDirty: UnwrapRef<typeof import('vee-validate')['useIsFormDirty']>
+    readonly useIsFormTouched: UnwrapRef<typeof import('vee-validate')['useIsFormTouched']>
+    readonly useIsFormValid: UnwrapRef<typeof import('vee-validate')['useIsFormValid']>
+    readonly useIsSubmitting: UnwrapRef<typeof import('vee-validate')['useIsSubmitting']>
     readonly useLink: UnwrapRef<typeof import('vue-router/auto')['useLink']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
+    readonly usePingLazyQuery: UnwrapRef<typeof import('./gql/generated/graphql')['usePingLazyQuery']>
+    readonly usePingQuery: UnwrapRef<typeof import('./gql/generated/graphql')['usePingQuery']>
+    readonly useResetForm: UnwrapRef<typeof import('vee-validate')['useResetForm']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
+    readonly useSubmitCount: UnwrapRef<typeof import('vee-validate')['useSubmitCount']>
+    readonly useSubmitForm: UnwrapRef<typeof import('vee-validate')['useSubmitForm']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
+    readonly useValidateField: UnwrapRef<typeof import('vee-validate')['useValidateField']>
+    readonly useValidateForm: UnwrapRef<typeof import('vee-validate')['useValidateForm']>
+    readonly validate: UnwrapRef<typeof import('vee-validate')['validate']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('vue')['watchPostEffect']>

@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { FormField } from '@/components/ui/form'
 
-import { useForm } from 'vee-validate'
-import * as v from 'valibot'
 import { toTypedSchema } from '@vee-validate/valibot'
-const { handleSubmit } = useForm({
+import * as v from 'valibot'
+import { useForm } from 'vee-validate'
+
+const { result, loading, error, refetch } = usePingQuery()
+
+const data = computed(() => result.value)
+
+const { handleSubmit, isFieldDirty } = useForm({
   validationSchema: toTypedSchema(
     v.object({
-      username: v.pipe(v.string()),
+      username: v.string(),
     }),
   ),
 })
@@ -45,5 +41,12 @@ const onSubmit = handleSubmit(values => {
       </FormField>
       <Button type="submit"> Submit </Button>
     </form>
+    <div>
+      <h2>Ping Example</h2>
+      <p v-if="loading">Loading...</p>
+      <p v-else-if="error">Error: {{ error.message }}</p>
+      <p v-else>Ping result: {{ data?.ping }}</p>
+      <Button type="button" @click="refetch">Refetch</Button>
+    </div>
   </main>
 </template>
